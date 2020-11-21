@@ -19,7 +19,7 @@ TestObject tObjAnchors =
 List<WebElement> anchors = WebUI.findWebElements(tObjAnchors, 10)
 List<String> hrefs = 
 	anchors.stream()
-    	.filter { we -> we.getAttribute('href') != null }
+		.filter { we -> we.getAttribute('href') != null }
 		.map { we -> we.getAttribute('href') }
 		.collect()
 
@@ -27,12 +27,11 @@ List<String> hrefs =
 StringBuilder messageBuffer = new StringBuilder()
 messageBuffer.append("*** All <a> elements in ${pageUrl} ***${System.lineSeparator}")
 
-// find <a> elements with broken href
+// Now we do the job!
 int brokenLinksCount = LinkTestUtils.findBrokenLinks(hrefs, messageBuffer)
 
 // print message
 print(messageBuffer.toString())
 
 WebUI.closeBrowser()
-
 return brokenLinksCount

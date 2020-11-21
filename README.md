@@ -61,7 +61,7 @@ if (brokenLinks > 0) {
 The `main` script calls another worker script 
 [`Test Cases/findBrokenAnchrosInPage`](Scripts/findBrokenAnchorsInPage/Script1605929957737.groovy) while specifying the URL of web page to visit. You can repeat calling the worker script for checking any URLs you want.
 
-### Worker script
+### Worker script and Custom Keyword
 
 The [`Test Cases/findBrokenAnchrosInPage`](Scripts/findBrokenAnchorsInPage/Script1605929957737.groovy) opens the specified page, find all `<a href="URL">` elements contained there, make a list of URLs to link, then call Custom Keyword `com.kazurayam.ksbackyard.LinkTestUtils.findBrokenLinks(List<String>)` which checks the accessibility of listed URLS and print reports.
 
@@ -185,7 +185,7 @@ Broken/All: 0/106
 The test finished quietly.
 I found that the page https://www.google.com/search?q=katalon contains no broken links.
 
-When I tried another web page which contains some broken links, the test finished with following Exception.
+However, when I tried another web page which contains some broken links, the test finished with following Exception.
 
 ```
 2020-11-21 15:40:13.341 ERROR com.kms.katalon.core.util.KeywordUtil    - ❌ one or more broken links are found
