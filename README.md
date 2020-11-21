@@ -211,5 +211,7 @@ com.kms.katalon.core.exception.StepFailedException: one or more broken links are
 
 ## Conclusion
 
-It is a too tiring, too boring task to check broken links in web pages manually. Here I proposed a solution for this years-old IT slavery labor.
+It is too tiring, too boring to check web pages for broken links if you do it manually. 
+Here I proposed a solution for this years-old IT labor.
+Make your testing automated!
 
