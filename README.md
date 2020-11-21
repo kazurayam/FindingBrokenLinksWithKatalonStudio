@@ -2,45 +2,77 @@ Finding Broken Links in web pages with Katalon Studio
 =========
 
 This is a Katalon Studio project for demonstration purpose.
-You can download it from [Releases]() page, unzip it, open and run it.
+You can download it from [Releases](https://github.com/kazurayam/FindingBrokenLinksWithKatalonStudio/releases) page, unzip, open and run it.
 
 This project was developed using Katalon Studio 7.2.2, but will work in older versions as well.
 
 ## Problem to solve
 
-This is a Frequently Asked Question: *How to find broken links in web pages?*
+**How to find broken links in web pages?** --- this is a years old, repeatedly asked question. 
 
-I would list up the terms:
+Here I would propose my solution for Katalon Studio users. 
 
-1. I want to find all `<a href="url">` tags in a web page and check if the URL as `href` is accessible
-2. I want to make HTTP GET Request per each URLs, and report a list of ResponseStatus-URL pairs  
-3. I would check the Status Code of HTTP Response. The value `200`, `301`, `302` are OK. Others are regarded as broken.
-4. I want to visit multiple web pages, count the number of broken links
-5. I want to be notified if one or more links are broken; otherwise the test should finish quietly
-6. I want the test runs as fast as possible
+## My solution
 
-I want to solve it in Katalon Studio.
+### Problem analysis
 
-## Solution
+I would describe the "Fining broken links" problem as follows:
+
+1. I want to find all `<a href="url">` tags in a web page and check if the URL as `href="url"` is actually accessible
+2. In order to check the accesibility, I want to make HTTP GET Request per each URLs, and report a list of Response Status-URL pairs
+3. I want to check the value of Status Code of HTTP Response. I will regart the value `200`, `301`, `302` as OK. Others Status Code values are regarded as *in doubt*, most likely *is broken*.
+4. I want to visit multiple web pages.
+5. I want to count the number of broken links
+5. If one or more links are broken, I want to be notified of it with a FAILURE message displayed in red color; otherwise the test should finish quietly
+6. I want the test runs as fast as possible. I do not require verbose execution logging.
+7. I want to solve this problem in Katalon Studio.
 
 ### How to run the demo
 
-In you Katalon Studio, open [`Test Cases/main`]() and run it.
+Start Katalon Studio, open the project and run  [`Test Cases/main`](Scripts/main/Script1605930113008.groovy).
 
-### Codes
+### Entry point
 
-[`Test Cases/main`]()
+The entry point is 
+- [`Test Cases/main`](Scripts/main/Script1605930113008.groovy)
 
-[`Test Cases/findBrokenAnchrosInPage`]
+The `main` is short, looks like this:
 
-[`Keywords/com.kazurayam.ksbackyard.LinkTestUtils.groovy`]
+```
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 
-### Reports 
+import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
-I checked the URL https://www.google.com/search?q=katalon.
+/**
+ * This test case finds broken <a href="..."> tags in web pages and report
+ */
 
+int brokenLinks = 0
 
-The test script emitted the following output.
+brokenLinks += WebUI.callTestCase(findTestCase("findBrokenAnchorsInPage"),
+	["pageUrl": "https://www.google.com/search?q=katalon"])
+
+// more pages to check as many as you want ...
+
+if (brokenLinks > 0) {
+	KeywordUtil.markFailed("one or more broken links are found")
+}
+```
+
+The `main` script calls another worker script 
+[`Test Cases/findBrokenAnchrosInPage`](Scripts/findBrokenAnchorsInPage/Script1605929957737.groovy) while specifying the URL of web page to visit. You can repeat calling the worker script for checking any URLs you want.
+
+### Worker script
+
+The [`Test Cases/findBrokenAnchrosInPage`](Scripts/findBrokenAnchorsInPage/Script1605929957737.groovy) opens the specified page, find all `<a href="URL">` elements contained there, make a list of URLs to link, then call Custom Keyword `com.kazurayam.ksbackyard.LinkTestUtils.findBrokenLinks(List<String>)` which checks the accessibility of listed URLS and print reports.
+
+Please read the source of 
+[`Keywords/com.kazurayam.ksbackyard.LinkTestUtils.groovy`](Keywords/com/kazurayam/ksbackyard/LinkTestUtils.groovy) to find out the implementation detail.
+
+### Test Result
+
+When I ran the test against the URL https://www.google.com/search?q=katalon, the test emitted the following output.
 
 ```
 *** All <a> elements in https://www.google.com/search?q=katalon ***
@@ -178,3 +210,8 @@ com.kms.katalon.core.exception.StepFailedException: one or more broken links are
 	at TempTestCase1605940726006.run(TempTestCase1605940726006.groovy:25)
 
 ```
+
+## Conclusion
+
+It is a too tiring, too boring task to check broken links in web pages manually. Here I proposed a solution for this years-old IT slavery labor.
+

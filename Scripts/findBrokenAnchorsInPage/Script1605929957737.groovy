@@ -17,10 +17,11 @@ TestObject tObjAnchors =
 	new TestObject("all anchors").addProperty("xpath", ConditionType.EQUALS,
 			"//a")
 List<WebElement> anchors = WebUI.findWebElements(tObjAnchors, 10)
-List<String> hrefs = anchors.stream()
-							.filter { we -> we.getAttribute('href') != null }
-							.map { we -> we.getAttribute('href') }
-							.collect()
+List<String> hrefs = 
+	anchors.stream()
+    	.filter { we -> we.getAttribute('href') != null }
+		.map { we -> we.getAttribute('href') }
+		.collect()
 
 // prepare buffer for messages
 StringBuilder messageBuffer = new StringBuilder()

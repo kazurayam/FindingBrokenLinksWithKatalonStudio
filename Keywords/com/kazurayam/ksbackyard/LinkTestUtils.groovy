@@ -6,7 +6,7 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 
 public class LinkTestUtils {
 
-	static int findBrokenLinks(List<String> urls, StringBuilder messageBuffer) {
+	static int findBrokenLinks(List<String> urls, Appendable messageBuffer) {
 		Objects.requireNonNull(urls)
 		Objects.requireNonNull(messageBuffer)
 		int count = 0
