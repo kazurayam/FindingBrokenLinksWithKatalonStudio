@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>findBrokenAnchorsInPage</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>3dc956e3-07fc-4fbb-aa32-e99ee545340d</testCaseGuid>
+   <variable>
+      <defaultValue>'https://www.google.com/search?q=katalon'</defaultValue>
+      <description></description>
+      <id>86c777d9-9141-49d9-adef-b1fad89d40e0</id>
+      <masked>false</masked>
+      <name>pageUrl</name>
+   </variable>
+</TestCaseEntity>
