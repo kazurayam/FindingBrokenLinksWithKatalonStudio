@@ -1,16 +1,14 @@
 Finding Broken Links in web pages with Katalon Studio
 =========
 
-This is a Katalon Studio project for demonstration purpose.
+This is a [Katalon Studio](https://www.katalon.com/) project for demonstration purpose.
 You can download it from [Releases](https://github.com/kazurayam/FindingBrokenLinksWithKatalonStudio/releases) page, unzip, open and run it.
 
 This project was developed using Katalon Studio 7.2.2, but will work in older versions as well.
 
 ## Problem to solve
 
-**How to find broken links in web pages?** --- this is a years old, repeatedly asked question. 
-
-Here I would propose my solution for Katalon Studio users. 
+How can I find broken links in web pages?
 
 ## My solution
 
@@ -18,20 +16,20 @@ Here I would propose my solution for Katalon Studio users.
 
 I would describe the "Fining broken links" problem as follows:
 
-1. I want to find all `<a href="url">` tags in a web page and check if the URL as `href="url"` is actually accessible
-2. In order to check the accesibility, I want to make HTTP GET Request per each URLs, and report a list of Response Status-URL pairs
-3. I want to check the value of Status Code of HTTP Response. I will regart the value `200`, `301`, `302` as OK. Others Status Code values are regarded as *in doubt*, most likely *is broken*.
-4. I want to visit multiple web pages.
+1. I want to visit a web and and to find all `<a href="url">` tags in the page, and check if the linked URL is actually accessible
+2. In order to check the accesibility, I want to make HTTP GET Request per each links, and report a list of Response Status-URL pairs
+3. I want to check the value of Status Code of HTTP Response. I will regard the value `200`, `301`, `302` as OK. Others Status Code values are regarded as *broken*.
+4. I want to visit multiple web pages in a test run.
 5. I want to count the number of broken links
-5. If one or more links are broken, I want to be notified of it with a FAILURE message displayed in red color; otherwise the test should finish quietly
-6. I want the test runs as fast as possible. I do not require verbose execution logging.
+5. If one or more links are broken, I want to be notified of it with a FAILURE message displayed in red color; if no broken links found the test should finish quietly
+6. I want the test runs as fast as possible.
 7. I want to solve this problem in Katalon Studio.
 
 ### How to run the demo
 
 Start Katalon Studio, open the project and run  [`Test Cases/main`](Scripts/main/Script1605930113008.groovy).
 
-### Entry point
+### Code
 
 The entry point is 
 - [`Test Cases/main`](Scripts/main/Script1605930113008.groovy)
